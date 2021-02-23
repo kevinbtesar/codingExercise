@@ -2,8 +2,20 @@ package com.kevintesar.api;
 
 import android.os.Build;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializer;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
+import org.json.JSONTokener;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -61,12 +73,48 @@ public class JSONParser {
         return null;
     }
 
-    private boolean isTesting() {
+
+
+
+    public String parseJSONForString(String feedURL)  {
+
+        String result = "";
+        StringBuilder resultBuilder;
+
         try {
-            Class.forName("com.kevintesar.JSONParserUnitTest");
-            return true;
-        } catch (ClassNotFoundException e) {
-            return false;
+            URL urlObj = new URL(feedURL);
+            HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept-Charset", "UTF-8");
+            conn.setReadTimeout(5000);
+            conn.setConnectTimeout(5000);
+
+
+            conn.connect();
+
+
+            //Receive the response from the server
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in, "utf-8"), 8);
+            resultBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                resultBuilder.append(line);
+            }
+
+            conn.disconnect();
+
+
+            return resultBuilder.toString();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        return null;
+
     }
+
+
 }
