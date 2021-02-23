@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Coding Exercise</string>
+    <string name="artist_name">Artist Name</string>
+    <string name="year">Year</string>
+    <string name="actors">Actors</string>
+    <string name="image">Image</string>
+    <string name="release_date">Release Date</string>
+    <string name="primary_genre_name">Primary Genre Name</string>
+    <string name="track_price">Track Price</string>
+    <string name="track_name">Track Name</string>
+    <string name="test">test</string>
+    <string name="no_internet_connection_please_make_sure_your_device_is_connected_to_the_internet_and_try_again">No Internet Connection Detected</string>
+    <string name="search">Search</string>
+</resources>
