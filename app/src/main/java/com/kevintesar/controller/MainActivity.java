@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void initViews(){
+    public void initViews(){
         pd = new ProgressDialog(this);
         pd.setMessage("Fetching Songs...");
         pd.setCancelable(false);

@@ -1,5 +1,7 @@
 package com.kevintesar.api;
 
+import android.os.Build;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,9 +24,8 @@ public class JSONParser {
             URL urlObj = new URL(feedURL);
             HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
             conn.setDoOutput(true);
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept-Charset", "UTF-8");
-
             conn.setReadTimeout(5000);
             conn.setConnectTimeout(5000);
 
@@ -42,6 +43,7 @@ public class JSONParser {
 
                 conn.disconnect();
 
+
                 result = resultBuilder.toString();
 
             } catch (IOException e) {
@@ -57,5 +59,14 @@ public class JSONParser {
             return new JSONObject(result);
         }
         return null;
+    }
+
+    private boolean isTesting() {
+        try {
+            Class.forName("com.kevintesar.JSONParserUnitTest");
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
     }
 }
